@@ -9,18 +9,35 @@
 </head>
 <body>
     <div id="app">
-        {{ mensagem }}
+        {{ somar() }}
+        {{ subtrair() }}
+        {{ dividir() }}
+        {{ multiplicar() }}
     </div>
 
     <script>
-        options = {
-            el: '#app',
-            data: { // variaveis/atributos reativos
-                mensagem: 'primeiro template criado com Vue.js'
-            }
-        }
 
-        const vm = new Vue(options); //view model
+        const vm = new Vue({
+            el: '#app',
+            data: { 
+                n1: 10,
+                n2: 5
+            },
+            methods: {
+                somar: function somar() {
+                    return this.n1 + this.n2
+                },
+                subtrair: function() {
+                    return this.n1 - this.n2
+                },
+                dividir: () => {
+                    return this.n1 / this.n2 //NaN por contexto léxico
+                },
+                multiplicar() {
+                    return this.n1 * this.n2
+                }
+            }
+        });
     </script>
 </body>
 </html>
