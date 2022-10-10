@@ -13,12 +13,13 @@
         {{ subtrair() }}
         {{ dividir() }}
         {{ multiplicar() }}
-        
+        <hr>
+        <a :href="site[0]" v-bind:target="site[1]">Site contato</a>
+        <input type="text" v-on:keyup="imprime('enviando parametro!')" :placeholder="1 == 1 ? place[0] : place[1]">
+        <button v-on:click="popUp()">Clique aqui</button>
+        <button @click="popUp($event)">Forma abreviada com @</button>
         <hr>
 
-        <a v-bind:href="site[0]" v-bind:target="site[1]">Site contato</a>
-        <input type="text" v-bind:placeholder="placeholder">
-        <input type="checkbox" v-bind:checked="check">
     </div>
 
     <script>
@@ -29,10 +30,17 @@
                 n1: 10,
                 n2: 5,
                 site: ['https://google.com', 'blank'],
-                placeholder: 'digite aqui',
-                check: true
+                place: ['condição 1', 'condição 2'],
+                check: true,
             },
             methods: {
+                imprime:  function(text) {
+                    console.log('digitado', text)
+                },
+                popUp: function(event) {
+                    alert('você clicou!')
+                    console.log(event)
+                },
                 somar: function somar() {
                     return this.n1 + this.n2
                 },
