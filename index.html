@@ -13,6 +13,12 @@
         {{ subtrair() }}
         {{ dividir() }}
         {{ multiplicar() }}
+        
+        <hr>
+
+        <a v-bind:href="site[0]" v-bind:target="site[1]">Site contato</a>
+        <input type="text" v-bind:placeholder="placeholder">
+        <input type="checkbox" v-bind:checked="check">
     </div>
 
     <script>
@@ -21,7 +27,10 @@
             el: '#app',
             data: { 
                 n1: 10,
-                n2: 5
+                n2: 5,
+                site: ['https://google.com', 'blank'],
+                placeholder: 'digite aqui',
+                check: true
             },
             methods: {
                 somar: function somar() {
