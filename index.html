@@ -19,7 +19,14 @@
         <button v-on:click="popUp()">Clique aqui</button>
         <button @click="popUp($event)">Forma abreviada com @</button>
         <hr>
-
+        Modificadores de eventos
+        <a @click.prevent.once="aoClicar($event)" href="www.google.com" target="blank" >
+            clique aqui!
+        </a> <br>
+        Quantidades de cliques: {{ cliques }}
+        <hr>
+        <input @keyup="capturaTeclas($event)" type="text"> <br>
+        Texto digitado: {{ textoDigitado }}
     </div>
 
     <script>
@@ -32,8 +39,17 @@
                 site: ['https://google.com', 'blank'],
                 place: ['condição 1', 'condição 2'],
                 check: true,
+                cliques: 0,
+                textoDigitado: ''
             },
             methods: {
+                capturaTeclas: function(event) {
+                    this.textoDigitado += event.key
+                },
+                aoClicar: function(event) {
+                    //event.preventDefault()
+                    this.cliques++
+                },
                 imprime:  function(text) {
                     console.log('digitado', text)
                 },
