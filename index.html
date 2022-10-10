@@ -8,31 +8,88 @@
     <title>Document</title>
 </head>
 <body>
-    <div id="app">
+    <div id="app1">
+        <!-- Chamada de funções -->
         {{ somar() }}
         {{ subtrair() }}
         {{ dividir() }}
         {{ multiplicar() }}
         <hr>
+        <!-- v-bind e v-on -->
         <a :href="site[0]" v-bind:target="site[1]">Site contato</a>
         <input type="text" v-on:keyup="imprime('enviando parametro!')" :placeholder="1 == 1 ? place[0] : place[1]">
         <button v-on:click="popUp()">Clique aqui</button>
         <button @click="popUp($event)">Forma abreviada com @</button>
         <hr>
+        <!-- Modificadores de eventos -->
         Modificadores de eventos
         <a @click.prevent.once="aoClicar($event)" href="www.google.com" target="blank" >
             clique aqui!
         </a> <br>
         Quantidades de cliques: {{ cliques }}
         <hr>
+
         <input @keyup="capturaTeclas($event)" type="text"> <br>
         Texto digitado: {{ textoDigitado }}
     </div>
+ 
+    <br><hr><br>
+
+    <div id="app2">
+        <!-- Selecionando filhos da instância de um elemento -->
+        <select id="selectChoice">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+        </select>
+        <button @click="selecionarFilhoDeInstancia()"> Clique para imprimir </button> 
+        <hr>
+        <!-- V-if condição -->
+        V-if <br>
+        <input type="checkbox" id="checkboxel">
+        <button @click="exibirSaldo()"> Exibir saldo </button> <br>
+        Saldo: R$ <span v-if="exibir">{{ saldo }}</span> <br>
+        <hr>
+
+        Outra forma: 
+        <button @click="exibir = !exibir">
+            <span v-if="exibir"> Ocultar saldo </span>
+            <span v-if="!exibir"> Mostrar saldo </span>
+        </button> <br>
+        Saldo: R$ <span v-if="exibir">{{ saldo }}</span> <br>
+        <hr>
+
+        <!-- v-else e v-if, ou v-else-if -->
+        idade: <input id="idade" type="text" v-on:blur="setIdade()"> <br>
+        <p v-if="idade <= 17"> Ainda  não tem 18 anos. </p>
+        <p v-else-if="idade >=60"> É um senhor de idade. </p>
+        <p v-else> Já é maior de idade! </p>
+    </div>
 
     <script>
+        new Vue({
+            el: '#app2',
+            data: {
+                saldo: 100.0,
+                exibir: false,
+                idade: 0
+            },
+            methods: {
+                setIdade: function() {
+                    this.idade = idade.value
+                },
+                exibirSaldo: function() {
+                    this.exibir = checkboxel.checked
+                },
+                selecionarFilhoDeInstancia: function() {
+                    console.log(selectChoice)
+                }
+            }
+        })
 
-        const vm = new Vue({
-            el: '#app',
+
+        new Vue({
+            el: '#app1',
             data: { 
                 n1: 10,
                 n2: 5,
