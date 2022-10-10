@@ -15,7 +15,7 @@
         {{ dividir() }}
         {{ multiplicar() }}
         <hr>
-        <!-- v-bind e v-on -->
+        <!-- v-bind (binding de atributos) e v-on (binding de eventos)-->
         <a :href="site[0]" v-bind:target="site[1]">Site contato</a>
         <input type="text" v-on:keyup="imprime('enviando parametro!')" :placeholder="1 == 1 ? place[0] : place[1]">
         <button v-on:click="popUp()">Clique aqui</button>
