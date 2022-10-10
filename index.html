@@ -64,15 +64,62 @@
         <p v-if="idade <= 17"> Ainda  não tem 18 anos. </p>
         <p v-else-if="idade >=60"> É um senhor de idade. </p>
         <p v-else> Já é maior de idade! </p>
+        <hr>
+
+        <!-- v-show -->
+        <h2 @mouseover="textoAjuda = true" v-on:mouseout="textoAjuda = false"> Passe o Mouse aqui para exibir a ajuda! </h2>
+        <div v-show="textoAjuda">
+            <h3> Está precisando de ajuda? </h3>
+            <p> Lorem ipsum dolor sit amet consectetur, adipisicing elit. Recusandae dolore quae quas aliquam magnam hic. Voluptatem porro voluptatum tenetur quod nostrum provident? Eveniet assumenda laborum repudiandae quaerat explicabo reiciendis cupiditate.</p>
+        </div> 
+        <hr>
+
+        <!-- Renderização de elementos HTML com v-html (existe o v-text que faz a mesma coisa que o innerText)-->
+        <div v-html="htmlLink"> </div>
+    </div>
+
+    <br><hr><br>
+
+    <div id="app3">
+        <!-- v-once para parar a renderização de elementos (a partir da primeira vez que é renderizado)-->
+        <h3 v-once> Saldo Inicial: {{ saldo }}</h3>
+        <h3> Saldo Atual: {{ saldo }}</h3> <br>
+        <input type="text" id="newValue"> 
+        <button v-on:click="creditar()"> Creditar </button>
+        <button v-on:click="debitar()"> Debitar </button>
+        <hr>
+
+        <!-- v-for e laços de repetição -->
+        <ul>
+            <li v-for="(item, key) in cursos"> {{ item }} - {{ key }} </li>
+        </ul>
     </div>
 
     <script>
+        new Vue({
+            el: '#app3',
+            data: {
+                saldo: 8900,
+                cursos: ['Laravel', 'ReactJS', 'VueJS', 'Flask']
+            },
+            methods: {
+                creditar: function() {
+                    this.saldo += parseFloat(newValue.value)
+                },
+                debitar: function() {
+                    this.saldo -= parseFloat(newValue.value)
+                }
+            }
+        })
+
         new Vue({
             el: '#app2',
             data: {
                 saldo: 100.0,
                 exibir: false,
-                idade: 0
+                idade: 0,
+                textoAjuda: false,
+                htmlLink: '<h3><a href="https://google.com" target="_blank">Google aqui</a></h3>'
             },
             methods: {
                 setIdade: function() {
@@ -86,7 +133,6 @@
                 }
             }
         })
-
 
         new Vue({
             el: '#app1',
