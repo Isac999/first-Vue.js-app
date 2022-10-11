@@ -149,16 +149,41 @@
         <!-- v-model, serve para sincronizar os dados do Vue com o template, e os dados do template com os dados do Vue-->
         <span> Paciente: </span> {{ paciente }} <br>
         <input type="text" v-model="paciente">
+        <hr>
+
+        <!-- watch para assistir as mudanças em cima de um template e executar funções sobre esses atributos -->
+        <span> Busque por pessoas: </span>
+        <input type="text" v-model="pessoa"> <br>
+        <span> Resultado da busca: </span> <br>
+        <ul>
+            <li v-for="item in listaPesquisa"> {{ item.nome }} </li>
+        </ul>
+
     </div>
     <script>
         new Vue({
             el: '#app4',
             data: {
-                paciente: 'Isac Fernandes'
+                paciente: 'Isac Fernandes',
+                pessoa: '',
+                pessoas: [
+                    {nome: 'Isac', idade: 19},
+                    {nome: 'João', idade: 22},
+                    {nome: 'Pedro', idade: 32},
+                    {nome: 'Marcia', idade: 25},
+                    {nome: 'Joana', idade: 37},
+                    {nome: 'Maria', idade: 49}
+                ],
+                listaPesquisa: []
             },
-            methods: {
-
+            methods: { },
+            watch: {
+                pessoa(valorNovo, valorAntigo) {
+                    //console.log(valorNovo, valorAntigo)
+                    this.listaPesquisa = this.pessoas.filter(p => p.nome.match(valorNovo))
+                }
             }
+
         })
 
         new Vue({
