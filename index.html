@@ -143,7 +143,24 @@
         </div>
     </div>
 
+    <br><hr><br>
+
+    <div id="app4">
+        <!-- v-model, serve para sincronizar os dados do Vue com o template, e os dados do template com os dados do Vue-->
+        <span> Paciente: </span> {{ paciente }} <br>
+        <input type="text" v-model="paciente">
+    </div>
     <script>
+        new Vue({
+            el: '#app4',
+            data: {
+                paciente: 'Isac Fernandes'
+            },
+            methods: {
+
+            }
+        })
+
         new Vue({
             el: '#app3',
             data: {
