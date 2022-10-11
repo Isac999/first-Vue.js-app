@@ -93,6 +93,54 @@
         <ul>
             <li v-for="(item, key) in cursos"> {{ item }} - {{ key }} </li>
         </ul>
+        <hr>
+
+        <!--  v-for e laços em objetos -->
+        <table border="1">
+            <thead>
+                <tr>
+                    <th> ID </th>
+                    <th> Nome </th>
+                    <th> Descrição </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="item, key in cursos2">
+                    <td> {{ key }} </td>
+                    <td> {{ item.nome }} </td>
+                    <td> {{ item.descricao }} </td>
+                </tr>
+            </tbody>
+        </table>
+        <hr>
+
+        <!-- renderização ve listas com atributo Key (vinculando um elemento e esses filhos atravez de um id) -->
+        <ul>
+            <li v-for="item in cursos3" v-bind:key="item.id">
+                 {{ item.nome }}
+                 <input type="text">
+                 <br>
+            </li>
+            <button v-on:click="embaralhar()"> Embaralhar lista </button>
+        </ul>
+        <hr>
+
+        <!-- renderização automatica (reatividade) de novos elementos de uma lista após a pagina já ter sido carregada (usando o próprio push do JS)-->
+        <ul>
+            <li v-for="item in noticias"> {{ item.id }} - {{ item.noticia }}</li>
+        </ul>
+        <div>
+            Nova noticia: <br>  
+            <input type="number" id="targetIdList"> <br>
+            <input type="text" id="targetNoticiaList"> <br>
+            <button @click="adicionarNaLista()"> Adicionar </button>
+        </div> <br>
+        <div>
+            Update noticia: <br>  
+            <input type="number" id="targetIdListUpdate"> <br>
+            <input type="text" id="targetNoticiaListUpdate"> <br>
+            <button @click="updateNaLista()"> Atualizar </button>
+        </div>
     </div>
 
     <script>
@@ -100,7 +148,43 @@
             el: '#app3',
             data: {
                 saldo: 8900,
-                cursos: ['Laravel', 'ReactJS', 'VueJS', 'Flask']
+                cursos: ['Laravel', 'ReactJS', 'VueJS', 'Flask'],
+                cursos2: {
+                    1000: {
+                        nome: 'Laravel',
+                        descricao: 'Excelente framework back-end!'
+                    },
+                    1001: {
+                        nome: 'VueJS',
+                        descricao: 'Excelente framework front-end!'
+                    },
+                    1002: {
+                        nome: 'IonicJS',
+                        descricao: 'Excelente frameword para dev mobile!'
+                    }
+                },
+                cursos3: [
+                    {
+                        id: 1,
+                        nome: 'Python',
+                        nivel: 'Pleno'
+                    },
+                    {
+                        id: 2,
+                        nome: 'JavaScript',
+                        nivel: 'Senior'
+                    },
+                    {
+                        id: 3,
+                        nome: 'PHP',
+                        nivel: 'Junior'
+                    }
+                ],
+                noticias: [
+                    {id: 1, noticia: 'qualquer coisa'},
+                    {id: 2, noticia: 'isac gatin'},
+                    {id: 3, noticia: 'logo dev junior'}
+                ]
             },
             methods: {
                 creditar: function() {
@@ -108,6 +192,32 @@
                 },
                 debitar: function() {
                     this.saldo -= parseFloat(newValue.value)
+                },
+                embaralhar: function() {
+                    let misturado = []
+
+                    misturado[0] = this.cursos3[2]
+                    misturado[1] = this.cursos3[0]
+                    misturado[2] = this.cursos3[1]
+
+                    this.cursos3 = misturado
+                },
+                adicionarNaLista: function() {
+                    this.noticias.push({
+                        id: targetIdList.value,
+                        noticia: targetNoticiaList.value
+                    })
+                },
+                updateNaLista: function()  {
+
+                    this.$set(
+                        this.noticias,
+                        parseFloat(targetIdListUpdate.value) - 1,
+                        {
+                        id: targetIdListUpdate.value,
+                        noticia: targetNoticiaListUpdate.value
+                        }
+                    )
                 }
             }
         })
